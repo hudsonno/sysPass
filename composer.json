@@ -67,6 +67,9 @@
     "classmap-authoritative": false,
     "platform": {
       "php": "7.4"
+    },
+    "allow-plugins": {
+      "syspass/extension-installer-plugin": true
     }
   }
 }
