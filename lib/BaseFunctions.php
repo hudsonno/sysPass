@@ -19,7 +19,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- *  along with sysPass.  If not, see <http://www.gnu.org/licenses/>.
+ * along with sysPass.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /**
@@ -219,14 +219,17 @@ function _t($domain, $message, $translate = true)
 
 /**
  * Capitalización de cadenas multi byte
+ * CORREÇÃO PHP 8.4: Ignora se a função nativa já existir
  *
  * @param $string
  *
  * @return string
  */
-function mb_ucfirst($string)
-{
-    return mb_strtoupper(mb_substr($string, 0, 1));
+if (!function_exists('mb_ucfirst')) {
+    function mb_ucfirst($string)
+    {
+        return mb_strtoupper(mb_substr($string, 0, 1));
+    }
 }
 
 /**
