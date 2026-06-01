@@ -259,14 +259,6 @@ final class Bootstrap
                 }
             }
         );
-
-        // Manejar URLs que no empiecen por '/admin'
-//        $this->Router->respond('GET', '!@^/(admin|public|service)',
-//            function ($request, $response) {
-//                /** @var Response $response */
-//                $response->redirect('index.php');
-//            }
-//        );
     }
 
     /**
@@ -295,9 +287,10 @@ final class Bootstrap
 
         self::$container->get(PhpExtensionChecker::class)->checkMandatory();
 
-        if (!self::$checkPhpVersion) {
+        // MODIFICAÇÃO PARA O FORK: Ignora a trava estrita se for menor que o PHP 8.5
+        if (!self::$checkPhpVersion && version_compare(PHP_VERSION, '8.5.0', '>=')) {
             throw new InitializationException(
-                sprintf(__('Required PHP version >= %s <= %s'), '7.3', '7.4'),
+                sprintf(__('Required PHP version >= %s <= %s'), '7.3', '8.4'),
                 Core\Exceptions\SPException::ERROR,
                 __u('Please update the PHP version to run sysPass')
             );
@@ -371,7 +364,7 @@ final class Bootstrap
     }
 
     /**
-     * Establecer las rutas de la aplicación.
+     * Establecer las rutas de la aplicação.
      * Esta función establece las rutas del sistema de archivos y web de la aplicación.
      * La variables de clase definidas son $SERVERROOT, $WEBROOT y $SUBURI
      */
